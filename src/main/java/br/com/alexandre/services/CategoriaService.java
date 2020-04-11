@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.alexandre.domain.Categoria;
 import br.com.alexandre.repositories.CategoriaRepository;
+import br.com.alexandre.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class CategoriaService {
@@ -17,7 +18,8 @@ public class CategoriaService {
 	public Categoria buscarPorId(Integer id) {
 		Optional<Categoria> categoriaEncontrada = repo.findById(id);
 		
-		return categoriaEncontrada.orElse(null);
+		return categoriaEncontrada.orElseThrow(() -> new ObjectNotFoundException(
+				"Categoria não encotrada ! ID: " + id + ", Tipo: " + Categoria.class.getName()));
 	}
 	
 }
