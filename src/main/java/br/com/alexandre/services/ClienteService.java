@@ -11,15 +11,15 @@ import br.com.alexandre.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class ClienteService {
-	
+
 	@Autowired
-	private ClienteRepository repo;
+	ClienteRepository repo;
 	
-	public Cliente buscarCliente(Integer id) {
-		Optional<Cliente> clienteEncontrado = repo.findById(id);
+	public Cliente buscarPorId(Integer id) {
+		Optional<Cliente> cliente = repo.findById(id);
 		
-		return clienteEncontrado.orElseThrow(() -> new ObjectNotFoundException("Cliente"
-				+ " não encontrado ! ID: " + id + ", Tipo: " + Cliente.class.getName()));
+		return cliente.orElseThrow(() -> new ObjectNotFoundException("Cliente não"
+				+ " encontrado ! ID: " + id + ", Tipo: " + Cliente.class.getName()));
 	}
 
 }

@@ -16,12 +16,12 @@ import br.com.alexandre.services.ClienteService;
 public class ClienteResource {
 	
 	@Autowired
-	private ClienteService service;
+	ClienteService service;
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Cliente> findById(@PathVariable Integer id){
-		Cliente clienteEncontrado = service.buscarCliente(id);
+		Cliente clienteEncontrado = service.buscarPorId(id);
+		
 		return ResponseEntity.status(HttpStatus.OK).body(clienteEncontrado);
 	}
-	
 }
