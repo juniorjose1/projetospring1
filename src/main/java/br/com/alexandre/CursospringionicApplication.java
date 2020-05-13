@@ -13,6 +13,7 @@ import br.com.alexandre.domain.Cidade;
 import br.com.alexandre.domain.Cliente;
 import br.com.alexandre.domain.Endereco;
 import br.com.alexandre.domain.Estado;
+import br.com.alexandre.domain.ItemPedido;
 import br.com.alexandre.domain.Pagamento;
 import br.com.alexandre.domain.PagamentoComBoleto;
 import br.com.alexandre.domain.PagamentoComCartao;
@@ -25,6 +26,7 @@ import br.com.alexandre.repositories.CidadeRepository;
 import br.com.alexandre.repositories.ClienteRepository;
 import br.com.alexandre.repositories.EnderecoRepository;
 import br.com.alexandre.repositories.EstadoRepository;
+import br.com.alexandre.repositories.ItemPedidoRepository;
 import br.com.alexandre.repositories.PagamentoRepository;
 import br.com.alexandre.repositories.PedidoRepository;
 import br.com.alexandre.repositories.ProdutoRepository;
@@ -55,6 +57,9 @@ public class CursospringionicApplication implements CommandLineRunner {
 	
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursospringionicApplication.class, args);
@@ -129,6 +134,21 @@ public class CursospringionicApplication implements CommandLineRunner {
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		
 		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
+		
+		ItemPedido ip1 = new ItemPedido(p1, ped1, 0.00, 1, 2000.00);
+		
+		ItemPedido ip2 = new ItemPedido(p3, ped1, 0.00, 2, 80.00);
+		
+		ItemPedido ip3 = new ItemPedido(p2, ped2, 100.00, 1, 800.00);
+		
+		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+		
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+
+		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
 
 		
 	}
