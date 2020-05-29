@@ -29,4 +29,11 @@ public class CategoriaService {
 		return categoriaSalva;
 	}
 	
+	public Categoria update(Categoria categoria) {
+		findById(categoria.getId());
+		Categoria categoriaAlterada = repo.save(categoria);
+		
+		return categoriaAlterada;
+	}
+	
 }
