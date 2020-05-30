@@ -1,12 +1,15 @@
 package br.com.alexandre.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import br.com.alexandre.domain.Categoria;
 import br.com.alexandre.repositories.CategoriaRepository;
+import br.com.alexandre.services.exceptions.DataIntegrityException;
 import br.com.alexandre.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -34,6 +37,22 @@ public class CategoriaService {
 		Categoria categoriaAlterada = repo.save(categoria);
 		
 		return categoriaAlterada;
+	}
+	
+	public void deleteById(Integer id) {
+		findById(id);
+		try {
+			repo.deleteById(id);
+		} catch(DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possível excluir uma categoria"
+					+ " que possui produtos.");
+		}
+	}
+	
+	public List<Categoria> findAll(){
+		List<Categoria> listaCategoria = repo.findAll();
+		
+		return listaCategoria;
 	}
 	
 }

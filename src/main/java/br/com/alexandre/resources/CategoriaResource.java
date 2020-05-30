@@ -2,9 +2,12 @@ package br.com.alexandre.resources;
 
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.alexandre.domain.Categoria;
+import br.com.alexandre.dto.CategoriaDTO;
 import br.com.alexandre.services.CategoriaService;
 
 @RestController
@@ -50,6 +54,22 @@ public class CategoriaResource {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
 		
 		return ResponseEntity.ok().location(uri).body(categoriaAlterada);
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> deleteById(@PathVariable Integer id){
+		service.deleteById(id);
+		
+		return ResponseEntity.noContent().build();
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<CategoriaDTO>> findAll(){
+		List<Categoria> listaCategorias = service.findAll();
+		List<CategoriaDTO> listaDTO = listaCategorias.stream()
+				.map(categoria -> new CategoriaDTO(categoria)).collect(Collectors.toList());
+		
+		return ResponseEntity.ok().body(listaDTO);
 	}
 
 }
