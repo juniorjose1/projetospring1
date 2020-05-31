@@ -74,7 +74,12 @@ public class CursospringionicApplication implements CommandLineRunner {
 		
 		Categoria cat1 = new Categoria(null, "Informática");
 		Categoria cat2 = new Categoria(null, "Escritório");
-		
+		Categoria cat3 = new Categoria(null, "Jogos");
+		Categoria cat4 = new Categoria(null, "Esportes");
+		Categoria cat5 = new Categoria(null, "Frutas");
+		Categoria cat6 = new Categoria(null, "Carros");
+		Categoria cat7 = new Categoria(null, "Animais");
+		Categoria cat8 = new Categoria(null, "Músicas");
 		
 		cat1.getProdutos().addAll(Arrays.asList(p1, p2, p3));
 		cat2.getProdutos().addAll(Arrays.asList(p2));
@@ -83,7 +88,7 @@ public class CursospringionicApplication implements CommandLineRunner {
 		p2.getCategorias().addAll(Arrays.asList(cat1, cat2));
 		p3.getCategorias().addAll(Arrays.asList(cat1));
 		
-		categoriaRepository.saveAll(Arrays.asList(cat1, cat2));
+		categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8));
 		produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
 		
 		Estado est1 = new Estado(null, "Minas Gerais");
