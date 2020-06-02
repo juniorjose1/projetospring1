@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import br.com.alexandre.domain.Categoria;
+import br.com.alexandre.dto.CategoriaDTO;
 import br.com.alexandre.repositories.CategoriaRepository;
 import br.com.alexandre.services.exceptions.DataIntegrityException;
 import br.com.alexandre.services.exceptions.ObjectNotFoundException;
@@ -64,6 +65,10 @@ public class CategoriaService {
 					orderBy);
 		
 		return repo.findAll(pageRequest);
+	}
+	
+	public Categoria fromDTO(CategoriaDTO obj) {
+		return new Categoria(obj.getId(), obj.getNome());
 	}
 	
 }
